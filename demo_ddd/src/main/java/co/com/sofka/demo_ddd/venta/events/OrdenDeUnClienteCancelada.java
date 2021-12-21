@@ -3,15 +3,16 @@ package co.com.sofka.demo_ddd.venta.events;
 import co.com.sofka.demo_ddd.generico.DomainEvent;
 import co.com.sofka.demo_ddd.venta.values.IdOrden;
 
-public class OrdenDeUnClienteCancelada extends DomainEvent {
-    private IdOrden idOrden;
+import java.util.Objects;
 
-    public OrdenDeUnClienteCancelada(IdOrden idOrden) {
-        super("PCSoluciones.venta.OrdenDeUnClientePuesta");
-        this.idOrden = idOrden;
+public class OrdenDeUnClienteCancelada extends DomainEvent {
+    private final IdOrden idOrden;
+    public OrdenDeUnClienteCancelada(IdOrden idOrden){
+        super("PCSoluciones.venta.OrdenDeUnClienteCancelada");
+        this.idOrden = Objects.requireNonNull(idOrden);
     }
 
-    public IdOrden getidOrden() {
-        return idOrden;
+    public IdOrden getIdOrden(){
+        return this.idOrden;
     }
 }
