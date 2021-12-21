@@ -1,4 +1,6 @@
 package co.com.sofka.demo_ddd.catalogo.events;
 
-public class StockDeUnArticuloVaciado {
+import co.com.sofka.demo_ddd.generico.DomainEvent;
+
+public class StockDeUnArticuloVaciado{
 }
