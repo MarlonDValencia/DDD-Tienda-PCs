@@ -1,6 +1,6 @@
 package co.com.sofka.demo_ddd.venta.events;
 
-import co.com.sofka.demo_ddd.generico.DomainEvent;
+import co.com.sofka.domain.generic.*;
 import co.com.sofka.demo_ddd.venta.values.IdProducto;
 
 import java.util.Objects;

@@ -1,14 +1,12 @@
 package co.com.sofka.demo_ddd.venta;
-
-import co.com.sofka.demo_ddd.catalogo.Articulo;
-import co.com.sofka.demo_ddd.generico.AggregateRoot;
+import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.demo_ddd.venta.events.*;
 import co.com.sofka.demo_ddd.venta.values.*;
 
 import java.util.List;
 import java.util.Objects;
 
-public class Venta extends AggregateRoot<IdVenta> {
+public class Venta extends AggregateEvent<IdVenta> {
 
     private final IdCliente IdCliente;
     private final List<Producto> ListaDeProductos;
@@ -22,34 +20,46 @@ public class Venta extends AggregateRoot<IdVenta> {
     }
 
     public void GenerarRecibo(){
-        this.applyChange(new ReciboGenerado(IdCliente,precio));
+        appendChange(new ReciboGenerado(IdCliente,precio)).apply();
     }
 
     public void EditarPrecioDeUnProducto(IdProducto idProducto,Precio precio){
         ListaDeProductos.forEach(item ->{
             item.editarPrecio(precio);
-            this.applyChange(new PrecioDeProductoEditado(idProducto, precio));
+            appendChange(new PrecioDeProductoEditado(idProducto, precio));
         });
     }
 
     public void BorrarUnProducto(IdProducto idProducto){
-        ListaDeProductos.removeIf(item -> item.getId().equals(idProducto));
-        this.applyChange(new ProductoBorrado(idProducto));
+        ListaDeProductos.removeIf(item -> item.identity().equals(idProducto));
+        appendChange(new ProductoBorrado(idProducto)).apply();
     }
 
     public void AgregarUnProducto(IdProducto idProducto, Precio precio,InfoFabricante infoFabricante, Recibo recibo){
         var id = new IdProducto();
         ListaDeProductos.add(new Producto(id,precio,infoFabricante,recibo));
-        this.applyChange(new ProductoAgregado(id,precio,infoFabricante,recibo));
+        appendChange(new ProductoAgregado(id,precio,infoFabricante,recibo)).apply();
     }
 
     public void PonerOrdenDeUnCliente(Cliente cliente, Orden orden){
         cliente.ListaDeOrdenes.add(orden);
-        this.applyChange(new OrdenDeUnClientePuesta(orden.getId()));
+        appendChange(new OrdenDeUnClientePuesta(orden.identity())).apply();
     }
 
     public void CancelarOrdenDeUnCliente(Cliente cliente, IdOrden idOrden){
-        cliente.ListaDeOrdenes.removeIf(item -> item.getId().equals(idOrden));
-        this.applyChange(new OrdenDeUnClienteCancelada(idOrden));
+        cliente.ListaDeOrdenes.removeIf(item -> item.identity().equals(idOrden));
+        appendChange(new OrdenDeUnClienteCancelada(idOrden)).apply();
+    }
+
+    public IdCliente idCliente() {
+        return IdCliente;
+    }
+
+    public List<Producto> listaDeProductos() {
+        return ListaDeProductos;
+    }
+
+    public Precio Precio() {
+        return precio;
     }
 }

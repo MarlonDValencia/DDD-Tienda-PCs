@@ -1,8 +1,7 @@
 package co.com.sofka.demo_ddd.venta;
 
 import co.com.sofka.demo_ddd.catalogo.Articulo;
-import co.com.sofka.demo_ddd.generico.Entity;
-import co.com.sofka.demo_ddd.generico.Id;
+import co.com.sofka.domain.generic.Entity;
 import co.com.sofka.demo_ddd.venta.values.*;
 
 import java.util.List;
@@ -23,5 +22,17 @@ public class Orden extends Entity<IdOrden> {
 
     public void cerrarOrden(){
         this.estadoOrden.state = "Closed";
+    }
+
+    public List<Articulo> listaArticulos() {
+        return ListaArticulos;
+    }
+
+    public Precio precio() {
+        return precio;
+    }
+
+    public EstadoOrden estadoOrden() {
+        return estadoOrden;
     }
 }

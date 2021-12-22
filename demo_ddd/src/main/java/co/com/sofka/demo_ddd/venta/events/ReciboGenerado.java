@@ -1,6 +1,6 @@
 package co.com.sofka.demo_ddd.venta.events;
 
-import co.com.sofka.demo_ddd.generico.DomainEvent;
+import co.com.sofka.domain.generic.DomainEvent;
 import co.com.sofka.demo_ddd.venta.values.IdCliente;
 import co.com.sofka.demo_ddd.venta.values.Precio;
 

@@ -1,18 +1,18 @@
 package co.com.sofka.demo_ddd.venta.values;
 
-import co.com.sofka.demo_ddd.generico.Id;
+import co.com.sofka.domain.generic.Identity;
 
 import java.util.UUID;
 
-public class IdVenta extends Id {
+public class IdVenta extends Identity {
     private IdVenta(String value){
-        super(value = UUID.randomUUID().toString());
+        super(value);
     }
 
     public IdVenta(){
     }
 
     public static IdVenta of(String value){
-        return new IdVenta(value = UUID.randomUUID().toString());
+        return new IdVenta(value);
     }
 }

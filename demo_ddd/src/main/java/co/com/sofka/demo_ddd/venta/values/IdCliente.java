@@ -1,19 +1,16 @@
 package co.com.sofka.demo_ddd.venta.values;
 
-import co.com.sofka.demo_ddd.generico.Id;
+import co.com.sofka.domain.generic.Identity;
 
-import java.util.UUID;
-
-public class IdCliente extends Id {
+public class IdCliente extends Identity {
     public IdCliente(String value) {
-        super(value = UUID.randomUUID().toString());
+        super(value);
     }
 
     public IdCliente(){
-
     }
 
     public static IdCliente of(String value){
-        return new IdCliente(value = UUID.randomUUID().toString());
+        return new IdCliente(value);
     }
 }
