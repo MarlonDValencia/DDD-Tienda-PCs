@@ -10,10 +10,10 @@ import java.util.Optional;
 
 public class Catalogo extends AggregateEvent<IdCatalogo> {
 
-    private final IdStock idStock;
-    private List<Articulo> ListaDeArticulos;
-    private List<Paquete> ListaDePaquetes;
-    private final IdPaquete idPaquete;
+    protected IdStock idStock;
+    protected List<Articulo> ListaDeArticulos;
+    protected List<Paquete> ListaDePaquetes;
+    protected IdPaquete idPaquete;
 
 
     public Catalogo(IdCatalogo idCatalogo, IdStock idStock, List<Articulo> listaDeArticulos,List<Paquete> ListaDePaquetes, IdPaquete idPaquete) {
@@ -69,5 +69,21 @@ public class Catalogo extends AggregateEvent<IdCatalogo> {
     public void VaciarStockDeUnArticulo(IdArticulo idArticulo){
         SeleccionarUnArticulo(idArticulo).get().disponibilidad().valor = "Sin Stock";
         appendChange((new StockDeUnArticuloVaciado(idArticulo))).apply();
+    }
+
+    public IdStock getIdStock() {
+        return idStock;
+    }
+
+    public List<Articulo> getListaDeArticulos() {
+        return ListaDeArticulos;
+    }
+
+    public List<Paquete> getListaDePaquetes() {
+        return ListaDePaquetes;
+    }
+
+    public IdPaquete getIdPaquete() {
+        return idPaquete;
     }
 }

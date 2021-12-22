@@ -1,16 +1,18 @@
-package co.com.sofka.demo_ddd.venta.events;
+package co.com.sofka.demo_ddd.venta.commands;
 
-import co.com.sofka.domain.generic.*;
-import co.com.sofka.demo_ddd.venta.values.*;
+import co.com.sofka.demo_ddd.venta.values.IdProducto;
+import co.com.sofka.demo_ddd.venta.values.InfoFabricante;
+import co.com.sofka.demo_ddd.venta.values.Precio;
+import co.com.sofka.demo_ddd.venta.values.Recibo;
+import co.com.sofka.domain.generic.Command;
 
-public class ProductoAgregado extends DomainEvent {
+public class AgregarUnProducto extends Command {
     private final IdProducto idProducto;
     private final Precio precio;
     private final InfoFabricante infoFabricante;
     private final Recibo recibo;
 
-    public ProductoAgregado(IdProducto idProducto, Precio precio, InfoFabricante infoFabricante, Recibo recibo) {
-        super("PCSoluciones.venta.ProductoAgregado");
+    public AgregarUnProducto(IdProducto idProducto, Precio precio, InfoFabricante infoFabricante, Recibo recibo) {
         this.idProducto = idProducto;
         this.precio = precio;
         this.infoFabricante = infoFabricante;
