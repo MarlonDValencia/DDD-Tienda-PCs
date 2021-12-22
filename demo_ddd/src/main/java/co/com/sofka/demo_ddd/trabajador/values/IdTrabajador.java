@@ -1,20 +1,16 @@
 package co.com.sofka.demo_ddd.trabajador.values;
 
-import co.com.sofka.demo_ddd.generico.Id;
-import co.com.sofka.demo_ddd.venta.values.IdProducto;
+import co.com.sofka.domain.generic.Identity;
 
-import java.util.UUID;
-
-public class IdTrabajador extends Id {
+public class IdTrabajador extends Identity {
     public IdTrabajador(String value) {
-        super(value = UUID.randomUUID().toString());
+        super(value);
     }
 
     public IdTrabajador(){
-
     }
 
     public static IdTrabajador of(String value){
-        return new IdTrabajador(value = UUID.randomUUID().toString());
+        return new IdTrabajador(value);
     }
 }

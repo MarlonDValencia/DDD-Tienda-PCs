@@ -1,15 +1,18 @@
 package co.com.sofka.demo_ddd.trabajador.values;
 
-import java.io.Serializable;
+import co.com.sofka.domain.generic.ValueObject;
 
-public class Rol implements Serializable {
+import java.util.Objects;
+
+public class Rol implements ValueObject<String> {
     private final String nombreRol;
 
     public Rol(String nombreRol){
-        this.nombreRol = nombreRol;
+        this.nombreRol = Objects.requireNonNull(nombreRol);
     }
 
-    public String getNombreRol(){
+    @Override
+    public String value() {
         return nombreRol;
     }
 }

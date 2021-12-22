@@ -3,13 +3,12 @@ package co.com.sofka.demo_ddd.catalogo;
 import co.com.sofka.demo_ddd.catalogo.events.*;
 import co.com.sofka.demo_ddd.catalogo.values.IdCatalogo;
 import co.com.sofka.demo_ddd.catalogo.values.*;
-import co.com.sofka.demo_ddd.generico.AggregateRoot;
-import co.com.sofka.demo_ddd.generico.Id;
+import co.com.sofka.domain.generic.AggregateEvent;
 
 import java.util.List;
 import java.util.Optional;
 
-public class Catalogo extends AggregateRoot<IdCatalogo> {
+public class Catalogo extends AggregateEvent<IdCatalogo> {
 
     private final IdStock idStock;
     private List<Articulo> ListaDeArticulos;
@@ -17,8 +16,8 @@ public class Catalogo extends AggregateRoot<IdCatalogo> {
     private final IdPaquete idPaquete;
 
 
-    public Catalogo(Id id, IdStock idStock, List<Articulo> listaDeArticulos,List<Paquete> ListaDePaquetes, IdPaquete idPaquete) {
-        super(id);
+    public Catalogo(IdCatalogo idCatalogo, IdStock idStock, List<Articulo> listaDeArticulos,List<Paquete> ListaDePaquetes, IdPaquete idPaquete) {
+        super(idCatalogo);
         this.idStock = idStock;
         this.ListaDeArticulos = listaDeArticulos;
         this.ListaDePaquetes = ListaDePaquetes;
@@ -27,11 +26,11 @@ public class Catalogo extends AggregateRoot<IdCatalogo> {
 
     public void ActualizarCatalogo(List<Articulo> ListaDeArticulos){
         this.ListaDeArticulos = ListaDeArticulos;
-        this.applyChange((new CatalogoActualizado(ListaDeArticulos)));
+        appendChange((new CatalogoActualizado(ListaDeArticulos))).apply();
     }
     public void AñadirNuevoPaquete(List<Paquete> ListaDePaquetes){
         this.ListaDePaquetes = ListaDePaquetes;
-        this.applyChange((new CatalogoActualizadoPaquetes(ListaDePaquetes)));
+        appendChange((new CatalogoActualizadoPaquetes(ListaDePaquetes))).apply();
     }
 
     public Optional<Articulo> SeleccionarUnArticulo(IdArticulo idArticulo){
@@ -41,34 +40,34 @@ public class Catalogo extends AggregateRoot<IdCatalogo> {
                 }
         );
         if(Lista.findAny().isPresent()){
-            applyChange((new ArticuloSeleccionado(idArticulo)));
+            appendChange((new ArticuloSeleccionado(idArticulo))).apply();
             return Lista.findFirst();
         }return null;
     }
 
     public void EliminarUnArticulo(IdArticulo idArticulo){
-        ListaDeArticulos.removeIf(articulo -> articulo.getId().equals(idArticulo));
-        applyChange((new ArticuloEliminado(idArticulo)));
+        ListaDeArticulos.removeIf(articulo -> articulo.identity().equals(idArticulo));
+        appendChange((new ArticuloEliminado(idArticulo))).apply();
     }
 
     public void EditarContenidoDeUnPaquete(List<Articulo> ListaDeArticulos, Paquete paquete){
         paquete.ListaDeArticulos = ListaDeArticulos;
-        applyChange((new ContenidoDeUnPaqueteEditado(paquete.getId(),ListaDeArticulos)));
+        appendChange((new ContenidoDeUnPaqueteEditado(paquete.identity(),ListaDeArticulos))).apply();
     }
 
     public void EliminarUnPaqueteDelCatalogo(IdPaquete idPaquete){
-        ListaDePaquetes.removeIf(paquete -> paquete.getId().equals(idPaquete));
-        applyChange((new PaqueteDelCatalogoEliminado(idPaquete)));
+        ListaDePaquetes.removeIf(paquete -> paquete.identity().equals(idPaquete));
+        appendChange((new PaqueteDelCatalogoEliminado(idPaquete))).apply();
     }
 
     public String ConsultarStockDeUnArticulo(IdArticulo idArticulo){
         var stock = SeleccionarUnArticulo(idArticulo).get().disponibilidad().getValor();
-        applyChange((new StockDeUnArticuloConsultado(idArticulo)));
+        appendChange((new StockDeUnArticuloConsultado(idArticulo))).apply();
         return "El estado de este articulo es "+stock;
     }
 
     public void VaciarStockDeUnArticulo(IdArticulo idArticulo){
         SeleccionarUnArticulo(idArticulo).get().disponibilidad().valor = "Sin Stock";
-        applyChange((new StockDeUnArticuloVaciado(idArticulo)));
+        appendChange((new StockDeUnArticuloVaciado(idArticulo))).apply();
     }
 }

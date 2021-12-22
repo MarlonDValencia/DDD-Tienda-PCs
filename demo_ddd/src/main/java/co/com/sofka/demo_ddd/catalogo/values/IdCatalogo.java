@@ -1,19 +1,16 @@
 package co.com.sofka.demo_ddd.catalogo.values;
 
-import co.com.sofka.demo_ddd.generico.Id;
-import co.com.sofka.demo_ddd.venta.values.IdVenta;
+import co.com.sofka.domain.generic.Identity;
 
-import java.util.UUID;
-
-public class IdCatalogo extends Id {
+public class IdCatalogo extends Identity {
     private IdCatalogo(String value){
-        super(value = UUID.randomUUID().toString());
+        super(value);
     }
 
     public IdCatalogo(){
     }
 
     public static IdCatalogo of(String value){
-        return new IdCatalogo(value = UUID.randomUUID().toString());
+        return new IdCatalogo(value);
     }
 }

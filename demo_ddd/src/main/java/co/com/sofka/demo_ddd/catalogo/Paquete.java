@@ -1,7 +1,7 @@
 package co.com.sofka.demo_ddd.catalogo;
 
 import co.com.sofka.demo_ddd.catalogo.values.*;
-import co.com.sofka.demo_ddd.generico.Entity;
+import co.com.sofka.domain.generic.Entity;
 
 import java.util.List;
 
@@ -24,6 +24,6 @@ public class Paquete extends Entity<IdPaquete> {
     }
 
     public void EliminarPaquete(IdPaquete idPaquete){
-        ListaDeArticulos.removeIf(articulo -> articulo.getId().equals(idPaquete));
+        ListaDeArticulos.removeIf(articulo -> articulo.identity().equals(idPaquete));
     }
 }

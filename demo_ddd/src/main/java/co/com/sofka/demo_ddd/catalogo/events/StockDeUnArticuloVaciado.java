@@ -1,11 +1,11 @@
 package co.com.sofka.demo_ddd.catalogo.events;
 
 import co.com.sofka.demo_ddd.catalogo.values.IdArticulo;
-import co.com.sofka.demo_ddd.generico.DomainEvent;
+import co.com.sofka.domain.generic.DomainEvent;
 
 import java.util.Objects;
 
-public class StockDeUnArticuloVaciado extends DomainEvent{
+public class StockDeUnArticuloVaciado extends DomainEvent {
     private final IdArticulo idArticulo;
 
     public StockDeUnArticuloVaciado(IdArticulo idArticulo){

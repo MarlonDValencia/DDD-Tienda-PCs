@@ -1,8 +1,6 @@
 package co.com.sofka.demo_ddd.venta.values;
 
 import co.com.sofka.domain.generic.ValueObject;
-
-import java.io.Serializable;
 import java.util.Objects;
 
 public final class Precio implements ValueObject<Precio.Properties> {

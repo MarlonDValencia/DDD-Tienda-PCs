@@ -3,13 +3,8 @@ package co.com.sofka.demo_ddd.catalogo;
 import co.com.sofka.demo_ddd.catalogo.values.Categoria;
 import co.com.sofka.demo_ddd.catalogo.values.Disponibilidad;
 import co.com.sofka.demo_ddd.catalogo.values.IdArticulo;
-import co.com.sofka.demo_ddd.generico.Entity;
-import co.com.sofka.demo_ddd.venta.values.IdProducto;
-import co.com.sofka.demo_ddd.venta.values.InfoFabricante;
 import co.com.sofka.demo_ddd.venta.values.Precio;
-import co.com.sofka.demo_ddd.venta.values.Recibo;
-
-import java.util.Objects;
+import co.com.sofka.domain.generic.Entity;
 
 public class Articulo extends Entity<IdArticulo> {
     private Disponibilidad disponibilidad;
@@ -25,7 +20,7 @@ public class Articulo extends Entity<IdArticulo> {
 
 
     public boolean SeleccionarArticulo(IdArticulo idArticulo){
-        return this.getId().equals(idArticulo);
+        return this.identity().equals(idArticulo);
     }
 
 

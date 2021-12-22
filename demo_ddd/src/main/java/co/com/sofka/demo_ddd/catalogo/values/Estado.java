@@ -1,15 +1,22 @@
 package co.com.sofka.demo_ddd.catalogo.values;
 
-import java.io.Serializable;
+import co.com.sofka.domain.generic.ValueObject;
 
-public class Estado implements Serializable {
+import java.util.Objects;
+
+public class Estado implements ValueObject<String> {
     private final String value;
 
     public Estado(String value) {
-        this.value = value;
+        this.value = Objects.requireNonNull(value);
     }
 
     public String getEstado(){
         return this.value;
+    }
+
+    @Override
+    public String value() {
+        return value;
     }
 }

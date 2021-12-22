@@ -1,7 +1,7 @@
 package co.com.sofka.demo_ddd.catalogo.events;
 
 import co.com.sofka.demo_ddd.catalogo.values.IdArticulo;
-import co.com.sofka.demo_ddd.generico.DomainEvent;
+import co.com.sofka.domain.generic.DomainEvent;
 
 import java.util.Objects;
 

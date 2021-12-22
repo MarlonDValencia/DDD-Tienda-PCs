@@ -1,7 +1,7 @@
 package co.com.sofka.demo_ddd.trabajador.events;
 
-import co.com.sofka.demo_ddd.generico.DomainEvent;
 import co.com.sofka.demo_ddd.venta.values.IdOrden;
+import co.com.sofka.domain.generic.DomainEvent;
 
 import java.util.Objects;
 

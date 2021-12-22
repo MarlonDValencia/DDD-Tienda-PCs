@@ -1,6 +1,6 @@
 package co.com.sofka.demo_ddd.trabajador;
 
-import co.com.sofka.demo_ddd.generico.AggregateRoot;
+import co.com.sofka.domain.generic.*;
 import co.com.sofka.demo_ddd.trabajador.events.OrdenTomada;
 import co.com.sofka.demo_ddd.trabajador.values.IdTrabajador;
 import co.com.sofka.demo_ddd.trabajador.values.Rol;
@@ -10,7 +10,7 @@ import co.com.sofka.demo_ddd.venta.values.*;
 
 import java.util.Objects;
 
-public class Trabajador extends AggregateRoot<IdTrabajador> {
+public class Trabajador extends AggregateEvent<IdTrabajador> {
 
     private final Nombre nombre;
     private final Rol rol;
@@ -24,13 +24,25 @@ public class Trabajador extends AggregateRoot<IdTrabajador> {
     }
 
     public void TomarOrden(Orden orden){
-        var id = orden.getId();
-        this.applyChange(new OrdenTomada(id));
+        var id = orden.identity();
+        appendChange(new OrdenTomada(id)).apply();
     }
 
     public void CerrarUnaOrden(Orden orden){
-        var id = orden.getId();
+        var id = orden.identity();
         orden.cerrarOrden();
-        this.applyChange(new OrdenDeUnClienteCancelada(id));
+        appendChange(new OrdenDeUnClienteCancelada(id)).apply();
+    }
+
+    public Nombre nombre() {
+        return nombre;
+    }
+
+    public Rol rol() {
+        return rol;
+    }
+
+    public Orden orden() {
+        return orden;
     }
 }
